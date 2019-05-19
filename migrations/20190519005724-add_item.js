@@ -23,11 +23,11 @@ module.exports = {
       item_default_inst_suppress: {
         type: Sequelize.BOOLEAN
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false, 
         type: Sequelize.DATE
       }

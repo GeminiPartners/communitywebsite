@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING,
     role: DataTypes.INTEGER,
     instructionsdefault: DataTypes.TEXT,
-  }, {});
+  }, {underscored: true});
   User.beforeSave((user, options) => {
     if (user.changed('password')) {
       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Item, {
+      foreignKey: 'user_id',
+      as: 'items',
+    })
   };
   return User;
 };

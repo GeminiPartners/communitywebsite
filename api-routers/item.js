@@ -7,7 +7,18 @@ require('../config/passport')(passport);
 const Item = require('../models').Item;
 
 
-
+router.get('/', passport.authenticate('jwt', { session: false}), function (req, res)
+{
+  var token = getToken(req.headers);
+  if (token) {
+      Item
+        .findAll()
+        .then((items) => res.status(200).send(items))
+        .catch((error) => res.status(400).send(error));
+    } else {
+      return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }
+});
 
 router.post('/', passport.authenticate('jwt', { session: false}), function (req, res)
 {
