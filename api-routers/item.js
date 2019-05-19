@@ -17,7 +17,7 @@ router.post('/', passport.authenticate('jwt', { session: false}), function (req,
         .create({
           item_name: req.body.item_name,
           item_desc: req.body.item_desc,
-          category_id: req.body.category_id,
+          user_id: req.body.user_id,
           item_instructions: req.body.item_instructions,
           item_default_inst_suppress: req.body.item_default_inst_suppress
         })

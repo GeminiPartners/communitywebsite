@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     item_name: DataTypes.STRING,
     item_desc: DataTypes.STRING,
-    category_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
     item_instructions: DataTypes.TEXT,
     item_default_inst_suppress: DataTypes.BOOLEAN
   }, {});
