@@ -14,7 +14,12 @@ router.post('/signup', function(req, res) {
     User
       .create({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        fullname: req.body.fullname,
+        email: req.body.email,
+        location: req.body.location,
+        role: req.body.role,
+        instructionsdefault: req.body.instructionsdefault
       })
       .then((user) => res.status(201).send(user))
       .catch((error) => {
