@@ -5,6 +5,9 @@ const router = express.Router();
 require('../config/passport')(passport);
 const Product = require('../models').Product;
 const User = require('../models').User;
+const Item = require('../models').Item
+
+const itemController = require('../controllers').item;
 
 router.post('/signup', function(req, res) {
   console.log(req.body);
@@ -84,6 +87,30 @@ router.post('/product', passport.authenticate('jwt', { session: false}), functio
     return res.status(403).send({success: false, msg: 'Unauthorized.'});
   }
 });
+
+/* Item Router */
+//router.get('/item', itemController.list);
+//router.get('/item:id', itemController.getById);
+router.post('/item', passport.authenticate('jwt', { session: false}), function (req, res)
+{
+  var token = getToken(req.headers);
+  if (token) {
+      Item
+        .create({
+          item_name: req.body.lecturer_name,
+          item_desc: req.body.item_desc,
+          category_id: req.body.category_id,
+          item_instructions: req.body.item_instructions,
+          item_default_inst_suppress: req.body.item_default_inst_suppress
+        })
+        .then((item) => res.status(201).send(item))
+        .catch((error) => res.status(400).send(error));
+    } else {
+      return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }
+});
+//router.put('/item:id', itemController.update);
+//router.delete('/item:id', itemController.delete);
 
 getToken = function (headers) {
   if (headers && headers.authorization) {
